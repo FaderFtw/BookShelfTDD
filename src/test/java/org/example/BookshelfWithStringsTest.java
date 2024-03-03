@@ -13,18 +13,22 @@ public class BookshelfWithStringsTest {
     private BookShelfWithStrings shelf;
 
     @BeforeEach
+    // Avant chaque test, initialise une nouvelle étagère à livres
     public void init() {
         shelf = new BookShelfWithStrings();
     }
 
     @Test
+    // Teste le cas où aucune livre n'a été ajouté
     public void emptyBookShelfWhenNoBookAdded() {
         List<String> books = shelf.books();
         assertTrue(books.isEmpty(), () -> "BookShelf should be empty.");
     }
 
     @Test
+        // Teste le cas où deux livres ont été ajoutés
     void bookshelfContainsTwoBooksWhenTwoBooksAdded() {
+        // Ajoute deux livres à l'étagère
         shelf.add("Programmer en Java");
         shelf.add("Tester avant");
         List<String> books = shelf.books();
@@ -32,19 +36,24 @@ public class BookshelfWithStringsTest {
     }
 
     @Test
+        // Teste l'immutabilité de la liste des livres retournée par l'étagère
     void booksReturnedFromBookShelfIsImmutableForClient() {
+        // Ajoute deux livres à l'étagère
         shelf.add("Effective Java");
         shelf.add("Code Complete");
         List<String> books = shelf.books();
         try {
+            // Tente d'ajouter un livre à la liste retournée par l'étagère
             books.add("The Mythical Man-Month");
             fail(() -> "Should not be able to add book to books");
         } catch (Exception e) {
+            // Vérifie que l'exception levée est de type UnsupportedOperationException
             assertTrue(e instanceof UnsupportedOperationException, () -> "Should throw UnsupportedOperationException.");
         }
     }
 
     @Test
+        // Teste le cas où plusieurs livres ont été ajoutés à l'étagère
     void multipleBooksAddedToBookShelf() {
         shelf.add("Effective Java", "Code Complete", "The C++ Programming Language");
         List<String> books = shelf.books();
@@ -52,6 +61,7 @@ public class BookshelfWithStringsTest {
     }
 
     @Test
+        // Teste le cas où l'étagère est vide après avoir ajouté sans livres
     void emptyBookShe1fWhenAddIsCa11edWithoutBooks() {
         shelf.add();
         List<String> books = shelf.books();
@@ -59,6 +69,7 @@ public class BookshelfWithStringsTest {
     }
 
     @Test
+        // Teste si les livres sur l'étagère sont triés par titre
     void bookshelfArrangedByBookTit1e() {
         shelf.add("Effective Java", "Code Complete", "The C++ Programming Language");
         List<String> books = shelf.arrangeByTitle();
@@ -69,6 +80,7 @@ public class BookshelfWithStringsTest {
     }
 
     @Test
+        // Teste si les livres sur l'étagère restent dans l'ordre d'insertion après l'appel de la méthode arrangeByTitle
     void booksInBookShe1fAreInInsertionOrderAfterCa11ingArrange() {
         shelf.add("Effective Java", "Code Complete", "The C++ Programming Language");
         shelf.arrangeByTitle();
